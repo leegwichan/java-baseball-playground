@@ -36,4 +36,19 @@ public class StringTest {
             assertThat(actual).containsExactly(expected);
         }
     }
+
+    @Nested
+    @DisplayName("substring() 테스트")
+    class SubstringTest {
+        @Test
+        @DisplayName("\"(1,2)\"에서 \"1,2\"의 부분만 추출할 수 있다")
+        void substringFromSecondCharToSecondLastCharTest() {
+            String string = "(1,2)";
+            String expected = "1,2";
+
+            String actual = string.substring(1, string.length()-1);
+
+            assertThat(actual).isEqualTo(expected);
+        }
+    }
 }
