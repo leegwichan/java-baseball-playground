@@ -6,9 +6,10 @@ import org.junit.jupiter.api.BeforeEach;
 
 import java.util.HashSet;
 import java.util.Set;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-public class SetTest {
+class SetTest {
     private Set<Integer> numbers;
 
     @BeforeEach
@@ -21,11 +22,20 @@ public class SetTest {
     }
 
     @Test
+    @DisplayName("집합의 크기를 알 수 있다")
     void sizeTest() {
         int expected = 3;
 
         int actual = numbers.size();
 
         assertThat(actual).isEqualTo(expected);
+    }
+
+    @Test
+    @DisplayName("집합에 해당 원소가 들어있는지 알 수 있다")
+    void containsTest() {
+        assertThat(numbers.contains(1)).isTrue();
+        assertThat(numbers.contains(3)).isTrue();
+        assertThat(numbers.contains(5)).isFalse();
     }
 }
