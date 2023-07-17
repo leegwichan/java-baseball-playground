@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class StringTest {
+class StringTest {
     @Test
     void replace() {
         String actual = "abc".replace("b", "d");
