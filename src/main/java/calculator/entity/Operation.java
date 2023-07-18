@@ -24,4 +24,8 @@ public enum Operation {
                 .findAny()
                 .orElseThrow(() -> new IllegalArgumentException());
     }
+
+    public int calculate(int left, int right) {
+        return operator.applyAsInt(left, right);
+    }
 }

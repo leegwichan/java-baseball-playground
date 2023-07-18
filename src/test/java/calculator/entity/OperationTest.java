@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-class OperatorTest {
+class OperationTest {
 
     @Nested
     @DisplayName("of() 테스트")
@@ -30,5 +30,17 @@ class OperatorTest {
             assertThatThrownBy(() -> Operation.of(sign))
                     .isInstanceOf(IllegalArgumentException.class);
         }
+    }
+
+    @DisplayName("Operation에 따라 계산을 할 수 있다.")
+    @ParameterizedTest
+    @CsvSource(value = {"PLUS,10", "MINUS,6", "MULTIPLY,16", "DIVIDE,4"})
+    void calculateTest(Operation operation, int expected) {
+        int left = 8;
+        int right = 2;
+
+        int actual = operation.calculate(left, right);
+
+        assertThat(actual).isEqualTo(expected);
     }
 }
