@@ -22,7 +22,7 @@ public enum Operation {
         return Arrays.stream(Operation.values())
                 .filter(operator -> operator.sign == sign)
                 .findAny()
-                .orElseThrow(() -> new IllegalArgumentException());
+                .orElseThrow(IllegalArgumentException::new);
     }
 
     public int calculate(int left, int right) {
