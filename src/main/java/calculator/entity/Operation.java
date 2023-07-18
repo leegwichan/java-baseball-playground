@@ -3,7 +3,7 @@ package calculator.entity;
 import java.util.Arrays;
 import java.util.function.IntBinaryOperator;
 
-public enum Operator {
+public enum Operation {
 
     PLUS('+', (a, b) -> a + b),
     MINUS('-', (a, b) -> a - b),
@@ -11,15 +11,15 @@ public enum Operator {
     DIVIDE('/', (a, b) -> a / b);
 
     private final char sign;
-    private final IntBinaryOperator operation;
+    private final IntBinaryOperator operator;
 
-    Operator(char sign, IntBinaryOperator operation) {
+    Operation(char sign, IntBinaryOperator operator) {
         this.sign = sign;
-        this.operation = operation;
+        this.operator = operator;
     }
 
-    public static Operator of(char sign) {
-        return Arrays.stream(Operator.values())
+    public static Operation of(char sign) {
+        return Arrays.stream(Operation.values())
                 .filter(operator -> operator.sign == sign)
                 .findAny()
                 .orElseThrow(() -> new IllegalArgumentException());

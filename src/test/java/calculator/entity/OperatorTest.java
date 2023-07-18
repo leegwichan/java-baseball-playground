@@ -3,7 +3,6 @@ package calculator.entity;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-import calculator.entity.Operator;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -18,8 +17,8 @@ class OperatorTest {
         @DisplayName("기호를 통해 Operator 객체를 가져올 수 있다")
         @ParameterizedTest
         @CsvSource(value = {"+,PLUS", "-,MINUS", "*,MULTIPLY", "/,DIVIDE"})
-        void ofTest(char sign, Operator expected) {
-            Operator actual = Operator.of(sign);
+        void ofTest(char sign, Operation expected) {
+            Operation actual = Operation.of(sign);
 
             assertThat(actual).isEqualTo(expected);
         }
@@ -28,7 +27,7 @@ class OperatorTest {
         @ParameterizedTest
         @CsvSource(value = {"i","0","P"})
         void ofTest_IllegalArgumentException(char sign) {
-            assertThatThrownBy(() -> Operator.of(sign))
+            assertThatThrownBy(() -> Operation.of(sign))
                     .isInstanceOf(IllegalArgumentException.class);
         }
     }
