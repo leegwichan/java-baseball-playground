@@ -35,4 +35,9 @@ public final class Digit {
         }
         return this.digit == ((Digit) o).digit;
     }
+
+    @Override
+    public int hashCode() {
+        return Integer.hashCode(digit);
+    }
 }

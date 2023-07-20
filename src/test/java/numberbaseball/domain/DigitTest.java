@@ -37,7 +37,7 @@ class DigitTest {
         }
     }
 
-    @DisplayName("입력한 숫자간의 ")
+    @DisplayName("입력한 숫자간의 논리적 동치성을 판단할 수 있다")
     @ParameterizedTest(name = "{0}과 {1}을 비교하면 {2}이다")
     @CsvSource({"1,1,true", "9,9,true", "7,4,false", "6,1,false"})
     void equalsTest(int digit1, int digit2, boolean expected) {
@@ -47,6 +47,17 @@ class DigitTest {
         boolean actual = target1.equals(target2);
 
         assertThat(actual).isEqualTo(expected);
+    }
+
+    @DisplayName("논리적 동치성에 따라 같은 hashCode를 제공할 수 있다")
+    @ParameterizedTest
+    @CsvSource({"1", "5", "7"})
+    void hashCodeTest(int digit) {
+        Digit target1 = newDigit(digit);
+        Digit target2 = newDigit(digit);
+
+        assertThat(target1.equals(target2)).isTrue();
+        assertThat(target1.hashCode()).isEqualTo(target2.hashCode());
     }
 
     Digit newDigit(int digit) {
