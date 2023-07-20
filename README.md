@@ -50,3 +50,50 @@
 - 기능을 구현하기 전에 README.md 파일에 구현할 기능 목록을 정리해 추가한다.
 - git의 commit 단위는 앞 단계에서 README.md 파일에 정리한 기능 목록 단위로 추가한다.
   - 참고문서: [AngularJS Commit Message Conventions](https://gist.github.com/stephenparish/9941e89d80e2bc58a153)
+
+## 구현 기능 목록
+
+### Domain
+
+#### Digit
+- 여러자리 수를 입력받아 List_Digit 객체 생성
+  - 음수를 입력할 경우, 예외를 던진다
+- 두 Digit을 같은지 다른지 비교하는 기능
+
+#### Number
+- List_Digit 세자리를 입력받아 Number 객체를 생성하는 기능
+  - List_Digit의 크기가 3이 아닌 경우, 예외를 던진다
+- 두 Number의 같은 자리, 같은 숫자가 맞은 개수를 계산하는 기능
+- 두 Number의 다른 자리, 같은 숫자가 맞은 개수를 계산하는 기능
+
+### DTO
+
+#### ResultDto
+- strike, ball, 총 숫자 길이를 입력받아 ResultDto 생성
+  - strike와 ball의 합이 총 숫자 길이보다 넘을 경우, 예외를 던진다
+- strike 수를 제공하는 기능
+- ball 수를 제공하는 기능
+- 숫자 길이를 제공하는 기능
+
+### View
+
+#### InputView
+- 숫자 야구하면서 사용하는 숫자를 입력받는 기능 생성
+  - 0~9 외의 기호를 입력받았을 경우, 예외를 던진다
+- 재시작 시도할지 어플리케이션을 종료할지 물어 입력받는 기능 생성
+  - 입력 형식 (1, 2) 외의 다른 형식을 입력받을 경우, 예외를 던진다
+
+#### OutputView
+- 볼/스트라이크 결과를 출력하는 기능 추가
+  - 숫자가 모두 맞았을 경우, 게임 종료 메세지를 출력함
+
+### Application
+
+#### NumberBaseballApplication
+- Application 실행 시, 진행 흐름 구현
+
+#### NumberBaseballController
+- Application 시작 기능
+- 정답과의 숫자 비교 기능
+- 정답과 입력했던 숫자가 일치했는지 알려주는 기능
+- 입력 값에 따라 재시작하거나 종료하는 기능
