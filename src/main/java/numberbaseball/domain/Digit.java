@@ -24,4 +24,15 @@ public final class Digit {
                 .mapToObj(Digit::new)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+        if (!(o instanceof Digit)) {
+            return false;
+        }
+        return this.digit == ((Digit) o).digit;
+    }
 }

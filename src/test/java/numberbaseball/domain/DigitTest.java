@@ -36,4 +36,20 @@ class DigitTest {
             assertThat(result).hasSize(expectedSize);
         }
     }
+
+    @DisplayName("입력한 숫자간의 ")
+    @ParameterizedTest(name = "{0}과 {1}을 비교하면 {2}이다")
+    @CsvSource({"1,1,true", "9,9,true", "7,4,false", "6,1,false"})
+    void equalsTest(int digit1, int digit2, boolean expected) {
+        Digit target1 = newDigit(digit1);
+        Digit target2 = newDigit(digit2);
+
+        boolean actual = target1.equals(target2);
+
+        assertThat(actual).isEqualTo(expected);
+    }
+
+    Digit newDigit(int digit) {
+        return Digit.getList(digit).get(0);
+    }
 }
