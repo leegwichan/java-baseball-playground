@@ -57,7 +57,7 @@ class DigitTest {
         Digit target2 = newDigit(digit);
 
         assertThat(target1.equals(target2)).isTrue();
-        assertThat(target1.hashCode()).isEqualTo(target2.hashCode());
+        assertThat(target1).hasSameHashCodeAs(target2);
     }
 
     Digit newDigit(int digit) {
