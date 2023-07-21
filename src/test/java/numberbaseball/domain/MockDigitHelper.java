@@ -1,7 +1,5 @@
 package numberbaseball.domain;
 
-import static org.mockito.Mockito.when;
-
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
