@@ -51,4 +51,17 @@ class NumberTest extends MockDigitHelper {
 
         assertThat(actual).isEqualTo(expected);
     }
+
+    @DisplayName("같은 숫자 다른 자리 일치 개수를 셀 수 있다.")
+    @ParameterizedTest(name = "{0}과 {1}을 비교했을 떄 {2}개가 일치한다")
+    @CsvSource({"123,231,3", "123,139,1", "789,789,0"})
+    void countSameDigitDifferentPositionTest(int number1, int number2, int expected) {
+        List<Digit> digits1 = getMockDigitsByInitialNumber(number1);
+        List<Digit> digits2 = getMockDigitsByInitialNumber(number2);
+
+        int actual = Number.from(digits1).countSameDigitDifferentPosition(Number.from(digits2));
+
+        assertThat(actual).isEqualTo(expected);
+    }
+
 }

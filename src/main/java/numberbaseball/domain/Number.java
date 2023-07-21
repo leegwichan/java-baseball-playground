@@ -24,4 +24,16 @@ public final class Number {
                 .filter(index -> this.digits.get(index).equals(number.digits.get(index)))
                 .count();
     }
+
+    public int countSameDigitDifferentPosition(Number number) {
+        return (int) IntStream.range(0, digits.size())
+                .filter(index -> isContainDigitExceptMatchedIndex(number.digits.get(index), index))
+                .count();
+    }
+
+    public boolean isContainDigitExceptMatchedIndex(Digit digit, int index) {
+        return IntStream.range(0, this.digits.size())
+                .filter(digitIndex -> digitIndex != index)
+                .anyMatch(digitIndex -> digit.equals(this.digits.get(digitIndex)));
+    }
 }
