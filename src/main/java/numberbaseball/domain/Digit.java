@@ -1,8 +1,9 @@
 package numberbaseball.domain;
 
+import static java.util.stream.Collectors.toList;
+
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public final class Digit {
 
@@ -22,7 +23,7 @@ public final class Digit {
         return Arrays.stream(String.valueOf(number).split(""))
                 .mapToInt(Integer::parseInt)
                 .mapToObj(Digit::new)
-                .collect(Collectors.toList());
+                .collect(toList());
     }
 
     @Override

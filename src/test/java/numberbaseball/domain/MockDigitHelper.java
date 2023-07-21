@@ -1,10 +1,11 @@
 package numberbaseball.domain;
 
+import static java.util.stream.Collectors.toList;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import org.mockito.Mockito;
 
@@ -15,7 +16,7 @@ public class MockDigitHelper {
     List<Digit> getMockDigitsBySize(int size) {
         return IntStream.range(0,size)
                 .mapToObj(index -> getMockDigit())
-                .collect(Collectors.toList());
+                .collect(toList());
     }
 
     List<Digit> getMockDigitsByInitialNumber(int number) {
@@ -23,7 +24,7 @@ public class MockDigitHelper {
                 .mapToInt(Integer::parseInt)
                 .mapToObj(digitInt ->
                         numberToDigit.computeIfAbsent(digitInt, (integer) -> getMockDigit()))
-                .collect(Collectors.toList());
+                .collect(toList());
     }
 
     private Digit getMockDigit() {
