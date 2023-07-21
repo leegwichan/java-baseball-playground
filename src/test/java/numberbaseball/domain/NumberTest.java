@@ -19,6 +19,14 @@ class NumberTest extends MockDigitHelper {
     @Nested
     class CreationTest {
 
+        @DisplayName("List<Digit> 자리에 null이 들어가서는 안된다")
+        @Test
+        void creationTest_whenWithNull() {
+            assertThatThrownBy(() -> Number.from(null))
+                    .isInstanceOf(NullPointerException.class)
+                    .hasMessageContaining("Number 생성할 때 입력 값은 null이 아니어야 합니다.");
+        }
+
         @DisplayName("List<Digit>의 크기가 3이 아닌 경우, 예외를 발생시킨다")
         @ParameterizedTest(name = "size : {0}")
         @CsvSource({"2", "4", "5"})
