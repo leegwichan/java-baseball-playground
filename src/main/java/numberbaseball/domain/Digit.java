@@ -6,13 +6,13 @@ import java.util.stream.Collectors;
 
 public final class Digit {
 
-    private final int digit;
+    private final int value;
 
-    private Digit(int digit) {
-        if (digit < 0 || digit > 9) {
+    private Digit(int value) {
+        if (value < 0 || value > 9) {
             throw new IllegalArgumentException();
         }
-        this.digit = digit;
+        this.value = value;
     }
 
     public static List<Digit> getList(int number) {
@@ -33,11 +33,11 @@ public final class Digit {
         if (!(o instanceof Digit)) {
             return false;
         }
-        return this.digit == ((Digit) o).digit;
+        return this.value == ((Digit) o).value;
     }
 
     @Override
     public int hashCode() {
-        return Integer.hashCode(digit);
+        return Integer.hashCode(value);
     }
 }
