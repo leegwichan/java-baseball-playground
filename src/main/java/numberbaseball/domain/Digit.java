@@ -7,6 +7,8 @@ import java.util.List;
 
 public final class Digit {
 
+    public static final Digit ZERO = Digit.of(0);
+
     private final int value;
 
     private Digit(int value) {
@@ -14,6 +16,10 @@ public final class Digit {
             throw new IllegalArgumentException();
         }
         this.value = value;
+    }
+
+    public static Digit of(int value) {
+        return new Digit(value);
     }
 
     public static List<Digit> getList(int number) {
