@@ -6,7 +6,7 @@ import numberbaseball.dto.RetryDto;
 import numberbaseball.view.printer.Printer;
 import numberbaseball.view.reader.Reader;
 
-public class InputView {
+public final class InputView {
 
     private static final String RESTART_INPUT_FORMAT = "1";
     private static final String EXIT_INPUT_FORMAT = "2";
