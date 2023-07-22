@@ -1,13 +1,17 @@
 package numberbaseball.view;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import numberbaseball.view.printer.Printer;
 import numberbaseball.view.printer.SpyPrinter;
 import numberbaseball.view.reader.MockReader;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 class InputViewTest {
 
@@ -35,5 +39,46 @@ class InputViewTest {
             assertThatCode(() -> InputView.of(new MockReader(""), new SpyPrinter()))
                     .doesNotThrowAnyException();
         }
+    }
+
+    @DisplayName("숫자 야구에서 숫자를 입력 받을 수 있다")
+    @Nested
+    class InputNumberTest {
+
+        @DisplayName("숫자를 입력받아 해당 숫자를 입력받을 수 있다")
+        @ParameterizedTest(name = "{0}")
+        @CsvSource({"123,123", "846, 846", "741,741"})
+        void inputNumberTest(String input, int expected) {
+            SpyPrinter spyPrinter = newSpyPrinter();
+            InputView inputView = newInputView(input, spyPrinter);
+
+            int actual = inputView.inputNumber();
+
+            assertThat(spyPrinter.getPrintedMessage()).isEqualTo("숫자를 입력해 주세요 : ");
+            assertThat(actual).isEqualTo(expected);
+        }
+
+        @DisplayName("숫자 외의 다른 문자가 들어간 경우 예외를 던진다")
+        @ParameterizedTest(name = "{0}")
+        @CsvSource({"sdf", "85)", "-85~"})
+        void inputNumberTest_whenInputNotNumber_throwException(String input) {
+            InputView inputView = newInputView(input);
+
+            assertThatThrownBy(() -> inputView.inputNumber())
+                    .isInstanceOf(IllegalArgumentException.class)
+                    .hasMessageContaining("[ERROR] 숫자를 입력해야 합니다");
+        }
+    }
+
+    InputView newInputView(String stubInputMessage, Printer printer) {
+        return InputView.of(new MockReader(stubInputMessage), printer);
+    }
+
+    InputView newInputView(String stubInputMessage) {
+        return InputView.of(new MockReader(stubInputMessage), newSpyPrinter());
+    }
+
+    SpyPrinter newSpyPrinter() {
+        return new SpyPrinter();
     }
 }
