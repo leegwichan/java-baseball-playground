@@ -3,7 +3,9 @@ package numberbaseball.view;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.in;
 
+import numberbaseball.dto.RetryDto;
 import numberbaseball.view.printer.Printer;
 import numberbaseball.view.printer.SpyPrinter;
 import numberbaseball.view.reader.MockReader;
@@ -67,6 +69,34 @@ class InputViewTest {
             assertThatThrownBy(() -> inputView.inputNumber())
                     .isInstanceOf(IllegalArgumentException.class)
                     .hasMessageContaining("[ERROR] 숫자를 입력해야 합니다");
+        }
+    }
+
+    @DisplayName("재시도 여부를 입력받을 수 있다")
+    @Nested
+    class InputRetryDtoTest {
+
+        @DisplayName("형식에 맞춰 입력하면 재시도 여부를 반환할 수 있다")
+        @ParameterizedTest(name = "{0}을 입력하면 {1}을 반환한다")
+        @CsvSource({"1,RESTART", "2,EXIT", " 1,RESTART", "2 ,EXIT"})
+        void inputRetryTest(String input, RetryDto excepted) {
+            SpyPrinter spyPrinter = newSpyPrinter();
+            InputView inputView = newInputView(input, spyPrinter);
+
+            RetryDto actual = inputView.inputRetryDto();
+
+            assertThat(actual).isEqualTo(excepted);
+        }
+
+        @DisplayName("형식 외의 값을 입력하면 예외를 던진다")
+        @ParameterizedTest(name = "{0}")
+        @CsvSource({"12", "@", "3", "a"})
+        void inputRetryTest(String input) {
+            InputView inputView = newInputView(input);
+
+            assertThatThrownBy(() -> inputView.inputRetryDto())
+                    .isInstanceOf(IllegalArgumentException.class)
+                    .hasMessageContaining("[ERROR] 재시도 형식에 맞추어 입력해야 합니다");
         }
     }
 
