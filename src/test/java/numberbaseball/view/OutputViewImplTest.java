@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-class OutputViewTest {
+class OutputViewImplTest {
 
     @DisplayName("인자를 받아 생성할 수 있다")
     @Nested
@@ -20,7 +20,7 @@ class OutputViewTest {
         @DisplayName("인자에 null이 있으면 예외를 던진다")
         @Test
         void creationTest_whenParameterIsNull_throwException() {
-            assertThatThrownBy(() -> OutputView.of(null))
+            assertThatThrownBy(() -> OutputViewImpl.of(null))
                     .isInstanceOf(NullPointerException.class);
         }
     }
@@ -31,7 +31,7 @@ class OutputViewTest {
         "3,0,3,3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료"}, delimiterString = ",")
     void printMatchResultTest(int strike, int ball, int totalDigit, String expected) {
         SpyPrinter printer = new SpyPrinter();
-        OutputView outputView = OutputView.of(printer);
+        OutputViewImpl outputView = OutputViewImpl.of(printer);
         ResultDto resultDto = newResultDto(strike, ball, totalDigit);
 
         outputView.printMatchResult(resultDto);

@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-class InputViewTest {
+class InputViewImplTest {
 
     @DisplayName("인자를 받아 객체를 생성할 수 있다")
     @Nested
@@ -23,21 +23,21 @@ class InputViewTest {
         @DisplayName("Reader가 null인 경우 예외를 던진다")
         @Test
         void creationTest_whenReaderIsNull_throwException() {
-            assertThatThrownBy(() -> InputView.of(null, new SpyPrinter()))
+            assertThatThrownBy(() -> InputViewImpl.of(null, new SpyPrinter()))
                     .isInstanceOf(NullPointerException.class);
         }
 
         @DisplayName("Printer가 null인 경우 예외를 던진다")
         @Test
         void creationTest_whenPrinterIsNull_throwException() {
-            assertThatThrownBy(() -> InputView.of(new MockReader(""), null))
+            assertThatThrownBy(() -> InputViewImpl.of(new MockReader(""), null))
                     .isInstanceOf(NullPointerException.class);
         }
 
         @DisplayName("인자들이 모두 null이 아닌 경우 정상적으로 생성된다")
         @Test
         void creationTest_whenAllParameterIsNotNull() {
-            assertThatCode(() -> InputView.of(new MockReader(""), new SpyPrinter()))
+            assertThatCode(() -> InputViewImpl.of(new MockReader(""), new SpyPrinter()))
                     .doesNotThrowAnyException();
         }
     }
@@ -51,7 +51,7 @@ class InputViewTest {
         @CsvSource({"123,123", "846, 846", "741,741"})
         void inputNumberTest(String input, int expected) {
             SpyPrinter spyPrinter = newSpyPrinter();
-            InputView inputView = newInputView(input, spyPrinter);
+            InputViewImpl inputView = newInputView(input, spyPrinter);
 
             int actual = inputView.inputNumber();
 
@@ -63,7 +63,7 @@ class InputViewTest {
         @ParameterizedTest(name = "{0}")
         @CsvSource({"sdf", "85)", "-85~"})
         void inputNumberTest_whenInputNotNumber_throwException(String input) {
-            InputView inputView = newInputView(input);
+            InputViewImpl inputView = newInputView(input);
 
             assertThatThrownBy(() -> inputView.inputNumber())
                     .isInstanceOf(IllegalArgumentException.class)
@@ -80,7 +80,7 @@ class InputViewTest {
         @CsvSource({"1,RESTART", "2,EXIT", " 1,RESTART", "2 ,EXIT"})
         void inputRetryTest(String input, RetryDto excepted) {
             SpyPrinter spyPrinter = newSpyPrinter();
-            InputView inputView = newInputView(input, spyPrinter);
+            InputViewImpl inputView = newInputView(input, spyPrinter);
 
             RetryDto actual = inputView.inputRetryDto();
 
@@ -93,7 +93,7 @@ class InputViewTest {
         @ParameterizedTest(name = "{0}")
         @CsvSource({"12", "@", "3", "a"})
         void inputRetryTest(String input) {
-            InputView inputView = newInputView(input);
+            InputViewImpl inputView = newInputView(input);
 
             assertThatThrownBy(() -> inputView.inputRetryDto())
                     .isInstanceOf(IllegalArgumentException.class)
@@ -101,12 +101,12 @@ class InputViewTest {
         }
     }
 
-    InputView newInputView(String stubInputMessage, Printer printer) {
-        return InputView.of(new MockReader(stubInputMessage), printer);
+    InputViewImpl newInputView(String stubInputMessage, Printer printer) {
+        return InputViewImpl.of(new MockReader(stubInputMessage), printer);
     }
 
-    InputView newInputView(String stubInputMessage) {
-        return InputView.of(new MockReader(stubInputMessage), newSpyPrinter());
+    InputViewImpl newInputView(String stubInputMessage) {
+        return InputViewImpl.of(new MockReader(stubInputMessage), newSpyPrinter());
     }
 
     SpyPrinter newSpyPrinter() {
