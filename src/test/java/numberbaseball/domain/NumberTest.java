@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.util.List;
+import numberbaseball.helper.NumberGenerator;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -21,10 +22,18 @@ class NumberTest extends MockDigitHelper {
 
         @DisplayName("List<Digit> 자리에 null이 들어가서는 안된다")
         @Test
-        void creationTest_whenWithNull() {
-            assertThatThrownBy(() -> Number.from(null))
+        void creationTest_whenWithNullDigitList() {
+            assertThatThrownBy(() -> Number.from((List<Digit>) null))
                     .isInstanceOf(NullPointerException.class)
-                    .hasMessageContaining("Number 생성할 때 입력 값은 null이 아니어야 합니다.");
+                    .hasMessageContaining("Number 생성할 때 입력 값은 null이 아니어야 합니다");
+        }
+
+        @DisplayName("List<Digit> 자리에 null이 들어가서는 안된다")
+        @Test
+        void creationTest_whenWithNullNumberGenerator() {
+            assertThatThrownBy(() -> Number.from((NumberGenerator) null))
+                    .isInstanceOf(NullPointerException.class)
+                    .hasMessageContaining("Number 생성할 때 입력 값은 null이 아니어야 합니다");
         }
 
         @DisplayName("List<Digit>의 크기가 3이 아닌 경우, 예외를 발생시킨다")
@@ -45,6 +54,18 @@ class NumberTest extends MockDigitHelper {
             List<Digit> digits = getMockDigitsBySize(NUMBER_SIZE);
 
             assertThatCode(() -> Number.from(digits)).doesNotThrowAnyException();
+        }
+
+        @DisplayName("NumberGenerator에서 3자리 수를 생성하지 않으면 예외를 발생한다")
+        @ParameterizedTest
+        @CsvSource({"2","4","5"})
+        void creationTest_numberGeneratorNotCreate3Digits_throwException(int digitSize) {
+            NumberGenerator mockGenerator = (size) -> getMockDigitsBySize(digitSize);
+
+            assertThatThrownBy(() -> Number.from(mockGenerator))
+                    .isInstanceOf(IllegalArgumentException.class)
+                    .hasMessageContaining("세자리 수만 생성할 수 있습니다")
+                    .hasMessageContaining(String.valueOf(digitSize));
         }
     }
 
