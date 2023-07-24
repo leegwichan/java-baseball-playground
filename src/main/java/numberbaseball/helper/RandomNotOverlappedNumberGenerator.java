@@ -21,7 +21,7 @@ public final class RandomNotOverlappedNumberGenerator implements NumberGenerator
 
         List<Digit> digits = new ArrayList<>();
         while (digits.size() < size) {
-            Digit randomDigit = Digit.of(randomOneSizeInt());
+            Digit randomDigit = Digit.of(randomFrom1To9());
             addDigitIfNotOverlapped(digits, randomDigit);
         }
         return digits;
@@ -33,15 +33,13 @@ public final class RandomNotOverlappedNumberGenerator implements NumberGenerator
         }
     }
 
-    private int randomOneSizeInt() {
-        return random.nextInt(10);
+    private int randomFrom1To9() {
+        return random.nextInt(9)+1;
     }
 
     private void addDigitIfNotOverlapped(List<Digit> digits, Digit digit){
-        if (digits.size() == 0 && digit.equals(Digit.ZERO) || digits.contains(digit)) {
-            return;
+        if (!digits.contains(digit)) {
+            digits.add(digit);
         }
-
-        digits.add(digit);
     }
 }

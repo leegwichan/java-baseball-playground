@@ -7,8 +7,6 @@ import java.util.List;
 
 public final class Digit {
 
-    public static final Digit ZERO = Digit.of(0);
-
     private final int value;
 
     private Digit(int value) {
