@@ -1,13 +1,24 @@
 package numberbaseball.controller;
 
+import java.util.Map;
 import java.util.Objects;
+import numberbaseball.domain.Digit;
+import numberbaseball.domain.Number;
+import numberbaseball.dto.ResultDto;
+import numberbaseball.dto.RetryDto;
+import numberbaseball.helper.RandomNotOverlappedNumberGenerator;
 import numberbaseball.view.InputView;
 import numberbaseball.view.OutputView;
 
 public final class NumberBaseballController {
+
+    private static Map<RetryDto, Boolean> retryMap
+            = Map.of(RetryDto.RESTART, true, RetryDto.EXIT, false);
+
     private final InputView inputView;
     private final OutputView outputView;
     private Number answer;
+    private boolean isMatched = false;
 
     private NumberBaseballController(InputView inputView, OutputView outputView) {
         this.inputView = Objects.requireNonNull(inputView);
@@ -19,19 +30,28 @@ public final class NumberBaseballController {
     }
 
     public void start() {
-
+        isMatched = false;
+        answer = Number.from(RandomNotOverlappedNumberGenerator.of());
     }
 
     public void tryCompareWithAnswer() {
-
+        int input = inputView.inputNumber();
+        Number question = Number.from(Digit.getList(input));
+        ResultDto resultDto = ResultDto.builder(answer.getLength())
+                .strike(answer.countSameDigitSamePosition(question))
+                .ball(answer.countSameDigitDifferentPosition(question))
+                .build();
+        isMatched = resultDto.isCorrect();
+        outputView.printMatchResult(resultDto);
     }
 
     public boolean isMatched() {
-        return false;
+        return isMatched;
     }
 
     public boolean isRestart() {
-        return false;
+        RetryDto retryDto = inputView.inputRetryDto();
+        return retryMap.getOrDefault(retryDto, false);
     }
 
 }

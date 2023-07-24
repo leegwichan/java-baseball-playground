@@ -39,6 +39,10 @@ public final class Number {
                 .count();
     }
 
+    public int getLength() {
+        return LENGTH;
+    }
+
     private boolean isContainDigitExceptMatchedIndex(Digit digit, int index) {
         return IntStream.range(0, this.digits.size())
                 .filter(digitIndex -> digitIndex != index)
