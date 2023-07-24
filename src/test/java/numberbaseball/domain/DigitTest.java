@@ -16,15 +16,13 @@ class DigitTest {
     @DisplayName("양수를 입력받아 Digit List를 만들 수 있다")
     class CreationTest {
 
-        @DisplayName("음수를 입력하면 예외를 던진다")
-        @Test
-        void getListTest_whenInputNegativeNumber_throwException() {
-            int number = -456;
-
+        @DisplayName("음수 또는 0을 포함한 숫자를 입력하면 예외를 출력한다")
+        @ParameterizedTest(name = "{0}")
+        @CsvSource({"-456", "708", "-1", "0"})
+        void getListTest_throwException(int number) {
             assertThatThrownBy(() -> Digit.getList(number))
                     .isInstanceOf(IllegalArgumentException.class)
-                    .hasMessageContaining("음수로 숫자를 만들 수 없습니다")
-                    .hasMessageContaining(String.valueOf(number));
+                    .hasMessageContaining("0이 포함되지 않은 양수를 입력하여야 합니다");
         }
 
         @DisplayName("양수를 통해 한 자리당 하나씩 Digit을 만든다")

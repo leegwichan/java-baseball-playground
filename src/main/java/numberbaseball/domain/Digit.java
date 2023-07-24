@@ -10,8 +10,8 @@ public final class Digit {
     private final int value;
 
     private Digit(int value) {
-        if (value < 0 || value > 9) {
-            throw new IllegalArgumentException();
+        if (value < 1 || value > 9) {
+            throw new IllegalArgumentException("0이 포함되지 않은 양수를 입력하여야 합니다");
         }
         this.value = value;
     }
@@ -22,7 +22,7 @@ public final class Digit {
 
     public static List<Digit> getList(int number) {
         if (number < 0) {
-            throw new IllegalArgumentException("음수로 숫자를 만들 수 없습니다 : " + number);
+            throw new IllegalArgumentException("0이 포함되지 않은 양수를 입력하여야 합니다");
         }
         return Arrays.stream(String.valueOf(number).split(""))
                 .mapToInt(Integer::parseInt)
