@@ -12,7 +12,7 @@ import numberbaseball.view.OutputView;
 
 public final class NumberBaseballController {
 
-    private static Map<RetryDto, Boolean> retryMap
+    private static final Map<RetryDto, Boolean> retryMap
             = Map.of(RetryDto.RESTART, true, RetryDto.EXIT, false);
 
     private final InputView inputView;
@@ -30,8 +30,8 @@ public final class NumberBaseballController {
     }
 
     public void start() {
-        isMatched = false;
         answer = Number.from(RandomNotOverlappedNumberGenerator.of());
+        isMatched = false;
     }
 
     public void tryCompareWithAnswer() {
