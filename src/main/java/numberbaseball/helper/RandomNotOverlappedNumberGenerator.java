@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Random;
 import numberbaseball.domain.BaseballDigit;
 
-public final class RandomNotOverlappedNumberGenerator implements NumberGenerator {
+public final class RandomNotOverlappedNumberGenerator implements BaseballNumberGenerator {
 
     private final Random random = new Random();
 

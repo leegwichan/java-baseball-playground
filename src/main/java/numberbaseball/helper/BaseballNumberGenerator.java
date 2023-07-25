@@ -4,7 +4,7 @@ import java.util.List;
 import numberbaseball.domain.BaseballDigit;
 
 @FunctionalInterface
-public interface NumberGenerator {
+public interface BaseballNumberGenerator {
 
-    List<BaseballDigit> generate(int totalDigit);
+    List<BaseballDigit> generate(int size);
 }

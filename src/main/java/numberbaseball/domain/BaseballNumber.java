@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.IntStream;
-import numberbaseball.helper.NumberGenerator;
+import numberbaseball.helper.BaseballNumberGenerator;
 
 public final class BaseballNumber {
     private static final int LENGTH = 3;
@@ -30,7 +30,7 @@ public final class BaseballNumber {
         return new BaseballNumber(digits);
     }
 
-    public static BaseballNumber from(NumberGenerator generator) {
+    public static BaseballNumber from(BaseballNumberGenerator generator) {
         Objects.requireNonNull(generator, "Number 생성할 때 입력 값은 null이 아니어야 합니다.");
         return new BaseballNumber(generator.generate(LENGTH));
     }

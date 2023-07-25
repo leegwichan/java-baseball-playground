@@ -5,7 +5,7 @@ import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.util.List;
-import numberbaseball.helper.NumberGenerator;
+import numberbaseball.helper.BaseballNumberGenerator;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -31,7 +31,7 @@ class BaseballNumberTest extends MockDigitHelper {
         @DisplayName("Generator 자리에 null이 들어가서는 안된다")
         @Test
         void creationTest_whenWithNullNumberGenerator() {
-            assertThatThrownBy(() -> BaseballNumber.from((NumberGenerator) null))
+            assertThatThrownBy(() -> BaseballNumber.from((BaseballNumberGenerator) null))
                     .isInstanceOf(NullPointerException.class)
                     .hasMessageContaining("Number 생성할 때 입력 값은 null이 아니어야 합니다");
         }
@@ -71,7 +71,7 @@ class BaseballNumberTest extends MockDigitHelper {
         @ParameterizedTest
         @CsvSource({"2","4","5"})
         void creationTest_numberGeneratorNotCreate3Digits_throwException(int digitSize) {
-            NumberGenerator mockGenerator = (size) -> getMockDigitsBySize(digitSize);
+            BaseballNumberGenerator mockGenerator = (size) -> getMockDigitsBySize(digitSize);
 
             assertThatThrownBy(() -> BaseballNumber.from(mockGenerator))
                     .isInstanceOf(IllegalArgumentException.class)
