@@ -7,11 +7,11 @@ import numberbaseball.view.printer.Printer;
 public final class OutputViewImpl implements OutputView {
 
     private static final String BLANK = " ";
-    private static final String LINE_CHANGER = "\n";
+    private static final String LINE_CHANGER = String.format("%n");
     private static final String STRIKE = "스트라이크";
     private static final String BALL = "볼";
     private static final String OUT = "아웃";
-    private static final String GAME_END = "개의 숫자를 모두 맞히셨습니다! 게임 종료\n";
+    private static final String GAME_END = String.format("개의 숫자를 모두 맞히셨습니다! 게임 종료%n");
 
     private final Printer printer;
 
