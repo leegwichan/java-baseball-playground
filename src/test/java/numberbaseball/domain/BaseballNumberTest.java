@@ -28,7 +28,7 @@ class BaseballNumberTest extends MockDigitHelper {
                     .hasMessageContaining("Number 생성할 때 입력 값은 null이 아니어야 합니다");
         }
 
-        @DisplayName("List<Digit> 자리에 null이 들어가서는 안된다")
+        @DisplayName("Generator 자리에 null이 들어가서는 안된다")
         @Test
         void creationTest_whenWithNullNumberGenerator() {
             assertThatThrownBy(() -> BaseballNumber.from((NumberGenerator) null))
@@ -36,7 +36,7 @@ class BaseballNumberTest extends MockDigitHelper {
                     .hasMessageContaining("Number 생성할 때 입력 값은 null이 아니어야 합니다");
         }
 
-        @DisplayName("List<Digit>의 크기가 3이 아닌 경우, 예외를 발생시킨다")
+        @DisplayName("숫자의 실이가 3이 아닌 경우, 예외를 발생시킨다")
         @ParameterizedTest(name = "size : {0}")
         @CsvSource({"2", "4", "5"})
         void creationTest_whenSizeIsNot3_throwException(int size) {
@@ -48,7 +48,18 @@ class BaseballNumberTest extends MockDigitHelper {
                     .hasMessageContaining(String.valueOf(size));
         }
 
-        @DisplayName("List<Digit>의 크기가 3인 경우, 정상적으로 생성된다")
+        @DisplayName("들어온 숫자들이 중복되면 예외를 던진다")
+        @ParameterizedTest(name = "{0}")
+        @CsvSource({"334", "877", "616"})
+        void creationTest_whenInputOverlappedDigits_throwException(int value) {
+            List<BaseballDigit> digits = getMockDigitsByInitialNumber(value);
+
+            assertThatThrownBy(() -> BaseballNumber.from(digits))
+                    .isInstanceOf(IllegalArgumentException.class)
+                    .hasMessageContaining("각각의 숫자들은 중복되지 않아야 합니다");
+        }
+
+        @DisplayName("숫자의 길이가 3이며 중복되지 않는 경우, 정상적으로 생성된다")
         @Test
         void creationTest_whenSizeIs3() {
             List<BaseballDigit> digits = getMockDigitsBySize(NUMBER_SIZE);
