@@ -2,7 +2,7 @@ package numberbaseball.controller;
 
 import java.util.Map;
 import java.util.Objects;
-import numberbaseball.domain.Digit;
+import numberbaseball.domain.BaseballDigit;
 import numberbaseball.domain.Number;
 import numberbaseball.dto.ResultDto;
 import numberbaseball.dto.RetryDto;
@@ -36,7 +36,7 @@ public final class NumberBaseballController {
 
     public void tryCompareWithAnswer() {
         int input = inputView.inputNumber();
-        Number question = Number.from(Digit.getList(input));
+        Number question = Number.from(BaseballDigit.getList(input));
         ResultDto resultDto = ResultDto.builder(answer.getLength())
                 .strike(answer.countSameDigitSamePosition(question))
                 .ball(answer.countSameDigitDifferentPosition(question))

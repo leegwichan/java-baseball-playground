@@ -5,28 +5,28 @@ import static java.util.stream.Collectors.toList;
 import java.util.Arrays;
 import java.util.List;
 
-public final class Digit {
+public final class BaseballDigit {
 
     private final int value;
 
-    private Digit(int value) {
+    private BaseballDigit(int value) {
         if (value < 1 || value > 9) {
             throw new IllegalArgumentException("0이 포함되지 않은 양수를 입력하여야 합니다");
         }
         this.value = value;
     }
 
-    public static Digit of(int value) {
-        return new Digit(value);
+    public static BaseballDigit of(int value) {
+        return new BaseballDigit(value);
     }
 
-    public static List<Digit> getList(int number) {
+    public static List<BaseballDigit> getList(int number) {
         if (number < 0) {
             throw new IllegalArgumentException("0이 포함되지 않은 양수를 입력하여야 합니다");
         }
         return Arrays.stream(String.valueOf(number).split(""))
                 .mapToInt(Integer::parseInt)
-                .mapToObj(Digit::new)
+                .mapToObj(BaseballDigit::new)
                 .collect(toList());
     }
 
@@ -35,10 +35,10 @@ public final class Digit {
         if (o == this) {
             return true;
         }
-        if (!(o instanceof Digit)) {
+        if (!(o instanceof BaseballDigit)) {
             return false;
         }
-        return this.value == ((Digit) o).value;
+        return this.value == ((BaseballDigit) o).value;
     }
 
     @Override

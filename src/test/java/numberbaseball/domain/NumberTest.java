@@ -23,7 +23,7 @@ class NumberTest extends MockDigitHelper {
         @DisplayName("List<Digit> 자리에 null이 들어가서는 안된다")
         @Test
         void creationTest_whenWithNullDigitList() {
-            assertThatThrownBy(() -> Number.from((List<Digit>) null))
+            assertThatThrownBy(() -> Number.from((List<BaseballDigit>) null))
                     .isInstanceOf(NullPointerException.class)
                     .hasMessageContaining("Number 생성할 때 입력 값은 null이 아니어야 합니다");
         }
@@ -40,7 +40,7 @@ class NumberTest extends MockDigitHelper {
         @ParameterizedTest(name = "size : {0}")
         @CsvSource({"2", "4", "5"})
         void creationTest_whenSizeIsNot3_throwException(int size) {
-            List<Digit> digits = getMockDigitsBySize(size);
+            List<BaseballDigit> digits = getMockDigitsBySize(size);
 
             assertThatThrownBy(() -> Number.from(digits))
                     .isInstanceOf(IllegalArgumentException.class)
@@ -51,7 +51,7 @@ class NumberTest extends MockDigitHelper {
         @DisplayName("List<Digit>의 크기가 3인 경우, 정상적으로 생성된다")
         @Test
         void creationTest_whenSizeIs3() {
-            List<Digit> digits = getMockDigitsBySize(NUMBER_SIZE);
+            List<BaseballDigit> digits = getMockDigitsBySize(NUMBER_SIZE);
 
             assertThatCode(() -> Number.from(digits)).doesNotThrowAnyException();
         }
@@ -73,8 +73,8 @@ class NumberTest extends MockDigitHelper {
     @ParameterizedTest(name = "{0}과 {1}을 비교했을 떄 {2}개가 일치한다")
     @CsvSource({"123,231,0", "123,193,2", "789,789,3"})
     void countSameDigitSamePositionTest(int number1, int number2, int expected) {
-        List<Digit> digits1 = getMockDigitsByInitialNumber(number1);
-        List<Digit> digits2 = getMockDigitsByInitialNumber(number2);
+        List<BaseballDigit> digits1 = getMockDigitsByInitialNumber(number1);
+        List<BaseballDigit> digits2 = getMockDigitsByInitialNumber(number2);
 
         int actual = Number.from(digits1).countSameDigitSamePosition(Number.from(digits2));
 
@@ -85,8 +85,8 @@ class NumberTest extends MockDigitHelper {
     @ParameterizedTest(name = "{0}과 {1}을 비교했을 떄 {2}개가 일치한다")
     @CsvSource({"123,231,3", "123,139,1", "789,789,0"})
     void countSameDigitDifferentPositionTest(int number1, int number2, int expected) {
-        List<Digit> digits1 = getMockDigitsByInitialNumber(number1);
-        List<Digit> digits2 = getMockDigitsByInitialNumber(number2);
+        List<BaseballDigit> digits1 = getMockDigitsByInitialNumber(number1);
+        List<BaseballDigit> digits2 = getMockDigitsByInitialNumber(number2);
 
         int actual = Number.from(digits1).countSameDigitDifferentPosition(Number.from(digits2));
 

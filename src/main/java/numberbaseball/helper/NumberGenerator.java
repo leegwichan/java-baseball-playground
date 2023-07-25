@@ -1,10 +1,10 @@
 package numberbaseball.helper;
 
 import java.util.List;
-import numberbaseball.domain.Digit;
+import numberbaseball.domain.BaseballDigit;
 
 @FunctionalInterface
 public interface NumberGenerator {
 
-    List<Digit> generate(int totalDigit);
+    List<BaseballDigit> generate(int totalDigit);
 }

@@ -5,7 +5,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.util.List;
 import java.util.Set;
-import numberbaseball.domain.Digit;
+import numberbaseball.domain.BaseballDigit;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -18,7 +18,7 @@ class RandomNotOverlappedNumberGeneratorTest {
     void generateTest(int size) {
         RandomNotOverlappedNumberGenerator generator = RandomNotOverlappedNumberGenerator.of();
 
-        List<Digit> actual = generator.generate(size);
+        List<BaseballDigit> actual = generator.generate(size);
 
         assertThat(actual).hasSize(size);
         assertListElementIsNotEqual(actual);
@@ -35,7 +35,7 @@ class RandomNotOverlappedNumberGeneratorTest {
                 .hasMessageContaining("곂치지 않는 숫자는 1~9자리 까지만 만들 수 있습니다");
     }
 
-    void assertListElementIsNotEqual(List<Digit> digits) {
+    void assertListElementIsNotEqual(List<BaseballDigit> digits) {
         assertThat(digits).hasSameSizeAs(Set.copyOf(digits));
     }
 }

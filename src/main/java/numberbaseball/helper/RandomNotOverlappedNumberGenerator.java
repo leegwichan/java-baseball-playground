@@ -3,7 +3,7 @@ package numberbaseball.helper;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import numberbaseball.domain.Digit;
+import numberbaseball.domain.BaseballDigit;
 
 public final class RandomNotOverlappedNumberGenerator implements NumberGenerator {
 
@@ -16,12 +16,12 @@ public final class RandomNotOverlappedNumberGenerator implements NumberGenerator
     }
 
     @Override
-    public List<Digit> generate(int size) {
+    public List<BaseballDigit> generate(int size) {
         validateSize(size);
 
-        List<Digit> digits = new ArrayList<>();
+        List<BaseballDigit> digits = new ArrayList<>();
         while (digits.size() < size) {
-            Digit randomDigit = Digit.of(randomFrom1To9());
+            BaseballDigit randomDigit = BaseballDigit.of(randomFrom1To9());
             addDigitIfNotOverlapped(digits, randomDigit);
         }
         return digits;
@@ -37,7 +37,7 @@ public final class RandomNotOverlappedNumberGenerator implements NumberGenerator
         return random.nextInt(9)+1;
     }
 
-    private void addDigitIfNotOverlapped(List<Digit> digits, Digit digit){
+    private void addDigitIfNotOverlapped(List<BaseballDigit> digits, BaseballDigit digit){
         if (!digits.contains(digit)) {
             digits.add(digit);
         }
