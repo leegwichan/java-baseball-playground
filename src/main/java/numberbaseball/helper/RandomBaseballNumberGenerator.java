@@ -5,14 +5,14 @@ import java.util.List;
 import java.util.Random;
 import numberbaseball.domain.BaseballDigit;
 
-public final class RandomNotOverlappedNumberGenerator implements BaseballNumberGenerator {
+public final class RandomBaseballNumberGenerator implements BaseballNumberGenerator {
 
     private final Random random = new Random();
 
-    private RandomNotOverlappedNumberGenerator() {}
+    private RandomBaseballNumberGenerator() {}
 
-    public static RandomNotOverlappedNumberGenerator of() {
-        return new RandomNotOverlappedNumberGenerator();
+    public static RandomBaseballNumberGenerator of() {
+        return new RandomBaseballNumberGenerator();
     }
 
     @Override

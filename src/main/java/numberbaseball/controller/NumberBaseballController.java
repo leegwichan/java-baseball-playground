@@ -6,7 +6,7 @@ import numberbaseball.domain.BaseballDigit;
 import numberbaseball.domain.BaseballNumber;
 import numberbaseball.dto.ResultDto;
 import numberbaseball.dto.RetryDto;
-import numberbaseball.helper.RandomNotOverlappedNumberGenerator;
+import numberbaseball.helper.RandomBaseballNumberGenerator;
 import numberbaseball.view.InputView;
 import numberbaseball.view.OutputView;
 
@@ -30,7 +30,7 @@ public final class NumberBaseballController {
     }
 
     public void start() {
-        answer = BaseballNumber.from(RandomNotOverlappedNumberGenerator.of());
+        answer = BaseballNumber.from(RandomBaseballNumberGenerator.of());
         isMatched = false;
     }
 

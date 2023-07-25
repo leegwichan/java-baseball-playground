@@ -10,13 +10,13 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-class RandomNotOverlappedNumberGeneratorTest {
+class RandomBaseballNumberGeneratorTest {
 
     @DisplayName("크기에 따라 곂치지 않는 숫자들을 만들어 낼 수 있다")
     @ParameterizedTest(name = "size = {0}")
     @CsvSource({"3","4","5"})
     void generateTest(int size) {
-        RandomNotOverlappedNumberGenerator generator = RandomNotOverlappedNumberGenerator.of();
+        RandomBaseballNumberGenerator generator = RandomBaseballNumberGenerator.of();
 
         List<BaseballDigit> actual = generator.generate(size);
 
@@ -28,7 +28,7 @@ class RandomNotOverlappedNumberGeneratorTest {
     @ParameterizedTest(name = "size = {0}")
     @CsvSource({"-1","10","0"})
     void generateTest_whenSizeIsOutOfRange_throwException(int size) {
-        RandomNotOverlappedNumberGenerator generator = RandomNotOverlappedNumberGenerator.of();
+        RandomBaseballNumberGenerator generator = RandomBaseballNumberGenerator.of();
 
         assertThatThrownBy(() -> generator.generate(size))
                 .isInstanceOf(IllegalArgumentException.class)
