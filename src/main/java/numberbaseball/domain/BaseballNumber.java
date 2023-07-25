@@ -5,12 +5,12 @@ import java.util.Objects;
 import java.util.stream.IntStream;
 import numberbaseball.helper.NumberGenerator;
 
-public final class Number {
+public final class BaseballNumber {
     private static final int LENGTH = 3;
 
     private final List<BaseballDigit> digits;
 
-    private Number(List<BaseballDigit> digits) {
+    private BaseballNumber(List<BaseballDigit> digits) {
         Objects.requireNonNull(digits, "Number 생성할 때 입력 값은 null이 아니어야 합니다");
         if (digits.size() != LENGTH) {
             throw new IllegalArgumentException("세자리 수만 생성할 수 있습니다 size : " + digits.size());
@@ -18,22 +18,22 @@ public final class Number {
         this.digits = List.copyOf(digits);
     }
 
-    public static Number from(List<BaseballDigit> digits) {
-        return new Number(digits);
+    public static BaseballNumber from(List<BaseballDigit> digits) {
+        return new BaseballNumber(digits);
     }
 
-    public static Number from(NumberGenerator generator) {
+    public static BaseballNumber from(NumberGenerator generator) {
         Objects.requireNonNull(generator, "Number 생성할 때 입력 값은 null이 아니어야 합니다.");
-        return new Number(generator.generate(LENGTH));
+        return new BaseballNumber(generator.generate(LENGTH));
     }
 
-    public int countSameDigitSamePosition(Number number) {
+    public int countSameDigitSamePosition(BaseballNumber number) {
         return (int) IntStream.range(0, digits.size())
                 .filter(index -> this.digits.get(index).equals(number.digits.get(index)))
                 .count();
     }
 
-    public int countSameDigitDifferentPosition(Number number) {
+    public int countSameDigitDifferentPosition(BaseballNumber number) {
         return (int) IntStream.range(0, digits.size())
                 .filter(index -> isContainDigitExceptMatchedIndex(number.digits.get(index), index))
                 .count();

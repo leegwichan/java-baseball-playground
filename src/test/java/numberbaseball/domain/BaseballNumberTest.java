@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-class NumberTest extends MockDigitHelper {
+class BaseballNumberTest extends MockDigitHelper {
 
     private static final int NUMBER_SIZE = 3;
 
@@ -23,7 +23,7 @@ class NumberTest extends MockDigitHelper {
         @DisplayName("List<Digit> 자리에 null이 들어가서는 안된다")
         @Test
         void creationTest_whenWithNullDigitList() {
-            assertThatThrownBy(() -> Number.from((List<BaseballDigit>) null))
+            assertThatThrownBy(() -> BaseballNumber.from((List<BaseballDigit>) null))
                     .isInstanceOf(NullPointerException.class)
                     .hasMessageContaining("Number 생성할 때 입력 값은 null이 아니어야 합니다");
         }
@@ -31,7 +31,7 @@ class NumberTest extends MockDigitHelper {
         @DisplayName("List<Digit> 자리에 null이 들어가서는 안된다")
         @Test
         void creationTest_whenWithNullNumberGenerator() {
-            assertThatThrownBy(() -> Number.from((NumberGenerator) null))
+            assertThatThrownBy(() -> BaseballNumber.from((NumberGenerator) null))
                     .isInstanceOf(NullPointerException.class)
                     .hasMessageContaining("Number 생성할 때 입력 값은 null이 아니어야 합니다");
         }
@@ -42,7 +42,7 @@ class NumberTest extends MockDigitHelper {
         void creationTest_whenSizeIsNot3_throwException(int size) {
             List<BaseballDigit> digits = getMockDigitsBySize(size);
 
-            assertThatThrownBy(() -> Number.from(digits))
+            assertThatThrownBy(() -> BaseballNumber.from(digits))
                     .isInstanceOf(IllegalArgumentException.class)
                     .hasMessageContaining("세자리 수만 생성할 수 있습니다")
                     .hasMessageContaining(String.valueOf(size));
@@ -53,7 +53,7 @@ class NumberTest extends MockDigitHelper {
         void creationTest_whenSizeIs3() {
             List<BaseballDigit> digits = getMockDigitsBySize(NUMBER_SIZE);
 
-            assertThatCode(() -> Number.from(digits)).doesNotThrowAnyException();
+            assertThatCode(() -> BaseballNumber.from(digits)).doesNotThrowAnyException();
         }
 
         @DisplayName("NumberGenerator에서 3자리 수를 생성하지 않으면 예외를 발생한다")
@@ -62,7 +62,7 @@ class NumberTest extends MockDigitHelper {
         void creationTest_numberGeneratorNotCreate3Digits_throwException(int digitSize) {
             NumberGenerator mockGenerator = (size) -> getMockDigitsBySize(digitSize);
 
-            assertThatThrownBy(() -> Number.from(mockGenerator))
+            assertThatThrownBy(() -> BaseballNumber.from(mockGenerator))
                     .isInstanceOf(IllegalArgumentException.class)
                     .hasMessageContaining("세자리 수만 생성할 수 있습니다")
                     .hasMessageContaining(String.valueOf(digitSize));
@@ -76,7 +76,7 @@ class NumberTest extends MockDigitHelper {
         List<BaseballDigit> digits1 = getMockDigitsByInitialNumber(number1);
         List<BaseballDigit> digits2 = getMockDigitsByInitialNumber(number2);
 
-        int actual = Number.from(digits1).countSameDigitSamePosition(Number.from(digits2));
+        int actual = BaseballNumber.from(digits1).countSameDigitSamePosition(BaseballNumber.from(digits2));
 
         assertThat(actual).isEqualTo(expected);
     }
@@ -88,7 +88,7 @@ class NumberTest extends MockDigitHelper {
         List<BaseballDigit> digits1 = getMockDigitsByInitialNumber(number1);
         List<BaseballDigit> digits2 = getMockDigitsByInitialNumber(number2);
 
-        int actual = Number.from(digits1).countSameDigitDifferentPosition(Number.from(digits2));
+        int actual = BaseballNumber.from(digits1).countSameDigitDifferentPosition(BaseballNumber.from(digits2));
 
         assertThat(actual).isEqualTo(expected);
     }

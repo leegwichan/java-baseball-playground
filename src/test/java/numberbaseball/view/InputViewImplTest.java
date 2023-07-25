@@ -48,7 +48,7 @@ class InputViewImplTest {
 
     @DisplayName("숫자 야구에서 숫자를 입력 받을 수 있다")
     @Nested
-    class InputNumberTest {
+    class InputBaseballNumberTest {
 
         @DisplayName("숫자를 입력받아 해당 숫자를 입력받을 수 있다")
         @ParameterizedTest(name = "{0}")
