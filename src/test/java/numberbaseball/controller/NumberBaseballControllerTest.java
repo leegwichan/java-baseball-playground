@@ -5,7 +5,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import numberbaseball.view.InputView;
 import numberbaseball.view.OutputView;
 import numberbaseball.view.StubInputView;
-import numberbaseball.view.reader.StubOutputView;
+import numberbaseball.view.StubOutputView;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;

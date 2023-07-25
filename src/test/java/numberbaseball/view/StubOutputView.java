@@ -1,7 +1,6 @@
-package numberbaseball.view.reader;
+package numberbaseball.view;
 
 import numberbaseball.dto.ResultDto;
-import numberbaseball.view.OutputView;
 
 public class StubOutputView implements OutputView {
     @Override
