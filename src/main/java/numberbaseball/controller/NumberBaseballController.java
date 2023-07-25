@@ -1,6 +1,5 @@
 package numberbaseball.controller;
 
-import java.util.Map;
 import java.util.Objects;
 import numberbaseball.domain.BaseballDigit;
 import numberbaseball.domain.BaseballNumber;
@@ -11,9 +10,6 @@ import numberbaseball.view.InputView;
 import numberbaseball.view.OutputView;
 
 public final class NumberBaseballController {
-
-    private static final Map<RetryDto, Boolean> retryMap
-            = Map.of(RetryDto.RESTART, true, RetryDto.EXIT, false);
 
     private final InputView inputView;
     private final OutputView outputView;
@@ -51,7 +47,7 @@ public final class NumberBaseballController {
 
     public boolean isRestart() {
         RetryDto retryDto = inputView.inputRetryDto();
-        return retryMap.getOrDefault(retryDto, false);
+        return retryDto.isRetry();
     }
 
 }
