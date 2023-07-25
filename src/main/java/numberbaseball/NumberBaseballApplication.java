@@ -10,8 +10,8 @@ public class NumberBaseballApplication {
 
     private static final NumberBaseballController controller
             = NumberBaseballController.of(
-                    InputView.of(new ConsoleReader(), new ConsolePrinter()),
-                    OutputView.of(new ConsolePrinter()));
+            InputView.of(new ConsoleReader(), new ConsolePrinter()),
+            OutputView.of(new ConsolePrinter()));
 
     private NumberBaseballApplication() {}
 

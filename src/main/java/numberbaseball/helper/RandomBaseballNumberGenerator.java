@@ -3,25 +3,25 @@ package numberbaseball.helper;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import numberbaseball.domain.Digit;
+import numberbaseball.domain.BaseballDigit;
 
-public final class RandomNotOverlappedNumberGenerator implements NumberGenerator {
+public final class RandomBaseballNumberGenerator implements BaseballNumberGenerator {
 
     private final Random random = new Random();
 
-    private RandomNotOverlappedNumberGenerator() {}
+    private RandomBaseballNumberGenerator() {}
 
-    public static RandomNotOverlappedNumberGenerator of() {
-        return new RandomNotOverlappedNumberGenerator();
+    public static RandomBaseballNumberGenerator of() {
+        return new RandomBaseballNumberGenerator();
     }
 
     @Override
-    public List<Digit> generate(int size) {
+    public List<BaseballDigit> generate(int size) {
         validateSize(size);
 
-        List<Digit> digits = new ArrayList<>();
+        List<BaseballDigit> digits = new ArrayList<>();
         while (digits.size() < size) {
-            Digit randomDigit = Digit.of(randomFrom1To9());
+            BaseballDigit randomDigit = BaseballDigit.of(randomFrom1To9());
             addDigitIfNotOverlapped(digits, randomDigit);
         }
         return digits;
@@ -34,10 +34,10 @@ public final class RandomNotOverlappedNumberGenerator implements NumberGenerator
     }
 
     private int randomFrom1To9() {
-        return random.nextInt(9)+1;
+        return random.nextInt(9) + 1;
     }
 
-    private void addDigitIfNotOverlapped(List<Digit> digits, Digit digit){
+    private void addDigitIfNotOverlapped(List<BaseballDigit> digits, BaseballDigit digit) {
         if (!digits.contains(digit)) {
             digits.add(digit);
         }

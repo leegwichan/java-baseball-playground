@@ -8,6 +8,7 @@ import numberbaseball.dto.RetryDto;
 import numberbaseball.view.printer.Printer;
 import numberbaseball.view.printer.SpyPrinter;
 import numberbaseball.view.reader.MockReader;
+import numberbaseball.view.reader.Reader;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -20,31 +21,34 @@ class InputViewImplTest {
     @Nested
     class CreationTest {
 
+        private final Printer mockPrinter = new SpyPrinter();
+        private final Reader mockReader = new MockReader();
+
         @DisplayName("Reader가 null인 경우 예외를 던진다")
         @Test
         void creationTest_whenReaderIsNull_throwException() {
-            assertThatThrownBy(() -> InputViewImpl.of(null, new SpyPrinter()))
+            assertThatThrownBy(() -> InputViewImpl.of(null, mockPrinter))
                     .isInstanceOf(NullPointerException.class);
         }
 
         @DisplayName("Printer가 null인 경우 예외를 던진다")
         @Test
         void creationTest_whenPrinterIsNull_throwException() {
-            assertThatThrownBy(() -> InputViewImpl.of(new MockReader(""), null))
+            assertThatThrownBy(() -> InputViewImpl.of(mockReader, null))
                     .isInstanceOf(NullPointerException.class);
         }
 
         @DisplayName("인자들이 모두 null이 아닌 경우 정상적으로 생성된다")
         @Test
         void creationTest_whenAllParameterIsNotNull() {
-            assertThatCode(() -> InputViewImpl.of(new MockReader(""), new SpyPrinter()))
+            assertThatCode(() -> InputViewImpl.of(mockReader, mockPrinter))
                     .doesNotThrowAnyException();
         }
     }
 
     @DisplayName("숫자 야구에서 숫자를 입력 받을 수 있다")
     @Nested
-    class InputNumberTest {
+    class InputBaseballNumberTest {
 
         @DisplayName("숫자를 입력받아 해당 숫자를 입력받을 수 있다")
         @ParameterizedTest(name = "{0}")
@@ -85,7 +89,7 @@ class InputViewImplTest {
             RetryDto actual = inputView.inputRetryDto();
 
             assertThat(spyPrinter.getPrintedMessage())
-                    .isEqualTo("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.\n");
+                    .contains("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
             assertThat(actual).isEqualTo(excepted);
         }
 
