@@ -8,6 +8,7 @@ import numberbaseball.dto.RetryDto;
 import numberbaseball.view.printer.Printer;
 import numberbaseball.view.printer.SpyPrinter;
 import numberbaseball.view.reader.MockReader;
+import numberbaseball.view.reader.Reader;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -20,24 +21,27 @@ class InputViewImplTest {
     @Nested
     class CreationTest {
 
+        private final Printer mockPrinter = new SpyPrinter();
+        private final Reader mockReader = new MockReader();
+
         @DisplayName("Reader가 null인 경우 예외를 던진다")
         @Test
         void creationTest_whenReaderIsNull_throwException() {
-            assertThatThrownBy(() -> InputViewImpl.of(null, new SpyPrinter()))
+            assertThatThrownBy(() -> InputViewImpl.of(null, mockPrinter))
                     .isInstanceOf(NullPointerException.class);
         }
 
         @DisplayName("Printer가 null인 경우 예외를 던진다")
         @Test
         void creationTest_whenPrinterIsNull_throwException() {
-            assertThatThrownBy(() -> InputViewImpl.of(new MockReader(""), null))
+            assertThatThrownBy(() -> InputViewImpl.of(mockReader, null))
                     .isInstanceOf(NullPointerException.class);
         }
 
         @DisplayName("인자들이 모두 null이 아닌 경우 정상적으로 생성된다")
         @Test
         void creationTest_whenAllParameterIsNotNull() {
-            assertThatCode(() -> InputViewImpl.of(new MockReader(""), new SpyPrinter()))
+            assertThatCode(() -> InputViewImpl.of(mockReader, mockPrinter))
                     .doesNotThrowAnyException();
         }
     }
