@@ -19,13 +19,17 @@ class BaseballNumberTest extends MockDigitHelper {
     @DisplayName("인자를 받아 해당 객체를 생성할 수 있다")
     @Nested
     class CreationTest {
+        private static final String NULL_POINTER_EXCEPTION_MESSAGE
+                = "Number 생성할 때 입력 값은 null이 아니어야 합니다";
+        private static final String DIGIT_SIZE_EXCEPTION_MESSAGE = "3자리 수만 생성할 수 있습니다";
+        private static final String DIGITS_OVERLAPPED_EXCEPTION = "각각의 숫자들은 중복되지 않아야 합니다";
 
         @DisplayName("List<Digit> 자리에 null이 들어가서는 안된다")
         @Test
         void creationTest_whenWithNullDigitList() {
             assertThatThrownBy(() -> BaseballNumber.from((List<BaseballDigit>) null))
                     .isInstanceOf(NullPointerException.class)
-                    .hasMessageContaining("Number 생성할 때 입력 값은 null이 아니어야 합니다");
+                    .hasMessageContaining(NULL_POINTER_EXCEPTION_MESSAGE);
         }
 
         @DisplayName("Generator 자리에 null이 들어가서는 안된다")
@@ -33,7 +37,7 @@ class BaseballNumberTest extends MockDigitHelper {
         void creationTest_whenWithNullNumberGenerator() {
             assertThatThrownBy(() -> BaseballNumber.from((BaseballNumberGenerator) null))
                     .isInstanceOf(NullPointerException.class)
-                    .hasMessageContaining("Number 생성할 때 입력 값은 null이 아니어야 합니다");
+                    .hasMessageContaining(NULL_POINTER_EXCEPTION_MESSAGE);
         }
 
         @DisplayName("숫자의 실이가 3이 아닌 경우, 예외를 발생시킨다")
@@ -44,7 +48,7 @@ class BaseballNumberTest extends MockDigitHelper {
 
             assertThatThrownBy(() -> BaseballNumber.from(digits))
                     .isInstanceOf(IllegalArgumentException.class)
-                    .hasMessageContaining("세자리 수만 생성할 수 있습니다")
+                    .hasMessageContaining(DIGIT_SIZE_EXCEPTION_MESSAGE)
                     .hasMessageContaining(String.valueOf(size));
         }
 
@@ -56,7 +60,7 @@ class BaseballNumberTest extends MockDigitHelper {
 
             assertThatThrownBy(() -> BaseballNumber.from(digits))
                     .isInstanceOf(IllegalArgumentException.class)
-                    .hasMessageContaining("각각의 숫자들은 중복되지 않아야 합니다");
+                    .hasMessageContaining(DIGITS_OVERLAPPED_EXCEPTION);
         }
 
         @DisplayName("숫자의 길이가 3이며 중복되지 않는 경우, 정상적으로 생성된다")
@@ -75,7 +79,7 @@ class BaseballNumberTest extends MockDigitHelper {
 
             assertThatThrownBy(() -> BaseballNumber.from(mockGenerator))
                     .isInstanceOf(IllegalArgumentException.class)
-                    .hasMessageContaining("세자리 수만 생성할 수 있습니다")
+                    .hasMessageContaining(DIGIT_SIZE_EXCEPTION_MESSAGE)
                     .hasMessageContaining(String.valueOf(digitSize));
         }
     }

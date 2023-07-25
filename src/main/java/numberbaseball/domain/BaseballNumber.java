@@ -19,7 +19,8 @@ public final class BaseballNumber {
     private void validateDigits(List<BaseballDigit> digits) {
         Objects.requireNonNull(digits, "Number 생성할 때 입력 값은 null이 아니어야 합니다");
         if (digits.size() != LENGTH) {
-            throw new IllegalArgumentException("세자리 수만 생성할 수 있습니다 size : " + digits.size());
+            throw new IllegalArgumentException(
+                    String.format("%d자리 수만 생성할 수 있습니다 size : %d", LENGTH, digits.size()));
         }
         if (digits.size() != Set.copyOf(digits).size()) {
             throw new IllegalArgumentException("각각의 숫자들은 중복되지 않아야 합니다");

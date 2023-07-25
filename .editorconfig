@@ -1,9 +1,9 @@
 [*]
 # 2.2 File encoding
 charset = utf-8 
-end_of_line = crlf
+end_of_line = lf
 
-# 4.2 Block indentation
+# 4.2 Block indentation +4 spaces
 indent_size = 4 
 indent_style = space
 tab_width = 4
