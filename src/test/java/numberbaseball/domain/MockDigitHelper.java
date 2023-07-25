@@ -14,7 +14,7 @@ public class MockDigitHelper {
     private final Map<Integer, BaseballDigit> numberToDigit = new HashMap<>();
 
     List<BaseballDigit> getMockDigitsBySize(int size) {
-        return IntStream.range(0,size)
+        return IntStream.range(0, size)
                 .mapToObj(index -> getMockDigit())
                 .collect(toList());
     }

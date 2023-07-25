@@ -69,7 +69,7 @@ class BaseballNumberTest extends MockDigitHelper {
 
         @DisplayName("NumberGenerator에서 3자리 수를 생성하지 않으면 예외를 발생한다")
         @ParameterizedTest
-        @CsvSource({"2","4","5"})
+        @CsvSource({"2", "4", "5"})
         void creationTest_numberGeneratorNotCreate3Digits_throwException(int digitSize) {
             BaseballNumberGenerator mockGenerator = (size) -> getMockDigitsBySize(digitSize);
 

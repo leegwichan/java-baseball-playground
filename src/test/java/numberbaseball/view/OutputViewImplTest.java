@@ -28,7 +28,7 @@ class OutputViewImplTest {
     @DisplayName("결과 값에 따라 형식에 맞춰 출력한다")
     @ParameterizedTest()
     @CsvSource(value = {"2,0,3,2스트라이크", "2,1,3,1볼 2스트라이크", "0,0,3,아웃", "0,1,3,1볼",
-        "3,0,3,3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료"}, delimiterString = ",")
+            "3,0,3,3스트라이크\n3개의 숫자를 모두 맞히셨습니다! 게임 종료"}, delimiterString = ",")
     void printMatchResultTest(int strike, int ball, int totalDigit, String expected) {
         SpyPrinter printer = new SpyPrinter();
         OutputViewImpl outputView = OutputViewImpl.of(printer);

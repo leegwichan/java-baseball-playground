@@ -11,7 +11,7 @@ public final class InputViewImpl implements InputView {
     private static final String RESTART_INPUT_FORMAT = "1";
     private static final String EXIT_INPUT_FORMAT = "2";
     private static final Map<String, RetryDto> retryFormatMap
-             = Map.of(RESTART_INPUT_FORMAT, RetryDto.RESTART, EXIT_INPUT_FORMAT, RetryDto.EXIT);
+            = Map.of(RESTART_INPUT_FORMAT, RetryDto.RESTART, EXIT_INPUT_FORMAT, RetryDto.EXIT);
     private static final String INPUT_NUMBER_REQUEST = "숫자를 입력해 주세요 : ";
     private static final String INPUT_RETRY_REQUEST =
             String.format("게임을 새로 시작하려면 %s, 종료하려면 %s를 입력하세요.%n", RESTART_INPUT_FORMAT, EXIT_INPUT_FORMAT);

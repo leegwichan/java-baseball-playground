@@ -34,10 +34,10 @@ public final class RandomBaseballNumberGenerator implements BaseballNumberGenera
     }
 
     private int randomFrom1To9() {
-        return random.nextInt(9)+1;
+        return random.nextInt(9) + 1;
     }
 
-    private void addDigitIfNotOverlapped(List<BaseballDigit> digits, BaseballDigit digit){
+    private void addDigitIfNotOverlapped(List<BaseballDigit> digits, BaseballDigit digit) {
         if (!digits.contains(digit)) {
             digits.add(digit);
         }
