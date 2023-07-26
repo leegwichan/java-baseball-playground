@@ -1,8 +1,9 @@
 package numberbaseball.helper;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import numberbaseball.domain.BaseballDigit;
 
 public final class RandomBaseballNumberGenerator implements BaseballNumberGenerator {
@@ -19,12 +20,10 @@ public final class RandomBaseballNumberGenerator implements BaseballNumberGenera
     public List<BaseballDigit> generate(int size) {
         validateSize(size);
 
-        List<BaseballDigit> digits = new ArrayList<>();
-        while (digits.size() < size) {
-            BaseballDigit randomDigit = BaseballDigit.of(randomFrom1To9());
-            addDigitIfNotOverlapped(digits, randomDigit);
-        }
-        return digits;
+        return IntStream.iterate(randomFrom1To9(), num -> randomFrom1To9())
+                .distinct().limit(size)
+                .mapToObj(BaseballDigit::of)
+                .collect(Collectors.toList());
     }
 
     private void validateSize(int size) {
@@ -35,11 +34,5 @@ public final class RandomBaseballNumberGenerator implements BaseballNumberGenera
 
     private int randomFrom1To9() {
         return random.nextInt(9) + 1;
-    }
-
-    private void addDigitIfNotOverlapped(List<BaseballDigit> digits, BaseballDigit digit) {
-        if (!digits.contains(digit)) {
-            digits.add(digit);
-        }
     }
 }
