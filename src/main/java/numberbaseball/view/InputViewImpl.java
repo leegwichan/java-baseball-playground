@@ -10,7 +10,7 @@ public final class InputViewImpl implements InputView {
 
     private static final String RESTART_INPUT_FORMAT = "1";
     private static final String EXIT_INPUT_FORMAT = "2";
-    private static final Map<String, RetryDto> retryFormatMap
+    private static final Map<String, RetryDto> INPUT_FORMAT_TO_RETRY_DTO
             = Map.of(RESTART_INPUT_FORMAT, RetryDto.RESTART, EXIT_INPUT_FORMAT, RetryDto.EXIT);
     private static final String INPUT_NUMBER_REQUEST = "숫자를 입력해 주세요 : ";
     private static final String INPUT_RETRY_REQUEST =
@@ -42,8 +42,8 @@ public final class InputViewImpl implements InputView {
         printer.print(INPUT_RETRY_REQUEST);
         String inputMessage = reader.read().trim();
 
-        if (retryFormatMap.containsKey(inputMessage)) {
-            return retryFormatMap.get(inputMessage);
+        if (INPUT_FORMAT_TO_RETRY_DTO.containsKey(inputMessage)) {
+            return INPUT_FORMAT_TO_RETRY_DTO.get(inputMessage);
         }
         throw new IllegalArgumentException(RETRY_FORMAT_ERROR_MESSAGE);
     }
